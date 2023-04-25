@@ -3,6 +3,9 @@
         <app-recipe-list></app-recipe-list>
     </div>
     <div class="col-md-5">
-        <app-recipe-detail></app-recipe-detail>
+        <app-recipe-detail *ngIf="showRecipe !== null; else noRecipe" [recipe]="showRecipe"></app-recipe-detail>
+        <ng-template #noRecipe>
+            <p>Slect a recipe to show it here</p>
+        </ng-template>
     </div>
 </div>
