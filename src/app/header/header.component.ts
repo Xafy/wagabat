@@ -6,9 +6,6 @@ import { Component, EventEmitter, Output } from "@angular/core";
     styleUrls:["./header.component.css"],
 })
 export class HeaderComponent{
-    @Output() destination = new EventEmitter<string>
-    navigate(render : string){
-        this.destination.emit(render);
-    }
+    
 
 }

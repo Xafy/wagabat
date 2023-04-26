@@ -1,5 +1,5 @@
-<a href="#" (click)="showDetail()" >
-    <div class="card" style="width: 18rem;" >
+<a style="cursor: pointer;" [routerLink]="[index]" >
+    <div class="card" routerLinkActive="bg-success text-white" style="width: 18rem;" >
         <img [src]="recipe.imagePath" class="card-img-top" alt="...">
         <div class="card-body">
         <h5 class="card-title">{{recipe.name}}</h5>

@@ -10,6 +10,9 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { RecipeMainComponent } from './recipes/recipe-main/recipe-main.component';
+import { RecipeFormComponent } from './recipes/recipe-form/recipe-form.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import { FormsModule } from '@angular/forms';
     ShoppingListComponent,
     ShoppingEditComponent,
     RecipeItemComponent,
+    RecipeMainComponent,
+    RecipeFormComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
