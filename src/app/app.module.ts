@@ -13,6 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeMainComponent } from './recipes/recipe-main/recipe-main.component';
 import { RecipeFormComponent } from './recipes/recipe-form/recipe-form.component';
+import {HttpClientModule} from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component'
 
 @NgModule({
   declarations: [
@@ -26,12 +29,15 @@ import { RecipeFormComponent } from './recipes/recipe-form/recipe-form.component
     RecipeItemComponent,
     RecipeMainComponent,
     RecipeFormComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
