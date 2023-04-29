@@ -1,5 +1,8 @@
 <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <div class="alert alert-danger mt-2" *ngIf="errorMessage">
+            {{errorMessage}}
+        </div>
     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
         <div class="form-group">
         <label for="email">E-Mail</label>
@@ -39,5 +42,8 @@
         </button>
         </div>
     </form>
+    </div>
+    <div *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
     </div>
 </div>
