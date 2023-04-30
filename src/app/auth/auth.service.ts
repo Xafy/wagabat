@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, catchError, tap, throwError } from 'rxjs';
+import { User } from './user.model';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   kind: string,
   idToken: string,
   email: string,
@@ -17,6 +18,8 @@ interface AuthResponseData {
 })
 export class AuthService {
 
+  user = new BehaviorSubject<User|null>(null);
+
   constructor(private http: HttpClient) { }
 
   signUp(email: string, password: string) {
@@ -29,7 +32,12 @@ export class AuthService {
           returnSecureToken: true,
         }
       )
-      .pipe(catchError(this.handleError));
+      .pipe(
+        catchError(this.handleError),
+        tap(response => {
+          this.handleAuth(response.email, response.localId, response.idToken, +response.expiresIn)
+        })
+      );
   }
 
   signIn(email: string, password: string){
@@ -40,7 +48,19 @@ export class AuthService {
         password,
         returnSecureToken: true,
       })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        catchError(this.handleError),
+        tap(response => {
+          this.handleAuth(response.email, response.localId, response.idToken, +response.expiresIn)
+        })        
+        );
+  }
+
+
+  private handleAuth(email: string, localId: string, idToken: string, expiresIn: number){
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
+    const user = new User(email, localId, idToken, expirationDate);
+    this.user.next(user);
   }
 
   private handleError(errorResponse : HttpErrorResponse){
@@ -52,6 +72,9 @@ export class AuthService {
         errorMessage = "This email is already registered";
         break;
       case "EMAIL_NOT_FOUND":
+        errorMessage = "Invalid credentials";
+        break;
+      case "INVALID_PASSWORD":
         errorMessage = "Invalid credentials";
         break;
       default :
