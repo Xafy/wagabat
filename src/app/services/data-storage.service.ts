@@ -20,16 +20,7 @@ export class DataStorageService {
   }
 
   fetchRecipes(){
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-      return this.http.get<Recipe[]>(
-        'https://wagabat-75dd2-default-rtdb.firebaseio.com/recipes.json',
-        {
-          params: new HttpParams().set('auth', user?.token || '')
-        }
-        ) 
-      }),
+      return this.http.get<Recipe[]>('https://wagabat-75dd2-default-rtdb.firebaseio.com/recipes.json').pipe(
       map(response => {
         return response.map(recipe => {
           return {
@@ -41,6 +32,7 @@ export class DataStorageService {
       tap(response => {
         this.recipeService.setRecipes(response)
       })
-    )
-  }
+      )
+    }
+
 }
