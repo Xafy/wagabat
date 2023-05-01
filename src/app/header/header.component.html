@@ -9,10 +9,10 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page">Home</a>
           </li>
-          <li class="nav-item" >
+          <li class="nav-item" *ngIf="isAuthenticated" >
             <a class="nav-link" routerLinkActive="active" routerLink="/recipes">Recipes</a>
           </li>
-          <li class="nav-item" *ngIf="isAuthenticated">
+          <li class="nav-item" >
             <a class="nav-link" routerLinkActive="active" routerLink="/shopping-list">Shopping List</a>
           </li>
           <li class="nav-item" *ngIf="!isAuthenticated">
